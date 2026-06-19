@@ -9,6 +9,7 @@ from bots.scanner_bot.scanner import get_signals
 from bots.scanner_bot.scanner import get_market_state
 from bots.scanner_bot.scanner import get_watchlist
 from bots.scanner_bot.scanner import get_stats
+
 app = FastAPI(title="PROJECT-A ULTIMATE DASHBOARD Framework")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -26,13 +27,21 @@ def pull_state_payload():
 async def viewport_router(request: Request):
 
     state = pull_state_payload()
+    signals = get_signals()
+    stats = get_stats()
+    watchlist = get_watchlist()
+
 
     return templates.TemplateResponse(
         request=request,
+
         name="dashboard.html",
         context={
             "request": request,
-            "data": state
+            "data": state,
+            "signals": signals,
+            "stats": stats,
+            "watchlist": watchlist
         }
     )
 @app.get("/api/v1/state", response_class=JSONResponse)

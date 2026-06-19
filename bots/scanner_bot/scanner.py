@@ -1670,3 +1670,20 @@ class Scanner:
         if not counts:
             return "sideways"
         return max(counts, key=lambda k: counts[k])
+    def get_signals():
+
+        with open(SIGNAL_LOG_FILE, "r") as f:
+             return json.load(f)
+
+
+    def get_stats():
+
+        with open(STATS_FILE, "r") as f:
+             return json.load(f)
+
+
+    def get_watchlist():
+
+        with open(WATCHLIST_FILE, "r") as f:
+             return json.load(f)
+             

@@ -176,16 +176,37 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for trace in data.recent_signals %}
-                                        <tr>
-                                            <td><strong>{{ trace.coin }}/USDT</strong></td>
-                                            <td><span class="row-badge-pill signal-type-{{ trace.signal | lower }}">{{ trace.signal }}</span></td>
-                                            <td><strong class="text-white">{{ trace.score }}</strong></td>
-                                            <td>{{ trace.price }}</td>
-                                            <td>{{ trace.time }}</td>
-                                            <td><span class="text-muted text-sm">{{ trace.market_state }}</span></td>
-                                        </tr>
-                                        {% endfor %}
+                                       {% for trace in signals %}
+                                            <tr>
+                                                <td><strong>{{ trace.coin }}/USDT</strong></td>
+
+                                                <td>
+                                                    <span class="row-badge-pill">
+                                                        {{ trace.opportunity_type }}
+                                                    </span>
+                                                </td>
+
+                                                <td>
+                                                    <strong class="text-white">
+                                                        {{ trace.score }}
+                                                    </strong>
+                                                </td>
+
+                                                <td>
+                                                    {{ trace.confidence }}%
+                                                </td>
+
+                                                <td>
+                                                    {{ trace.timestamp }}
+                                                </td>
+
+                                                <td>
+                                                    <span class="text-muted text-sm">
+                                                        {{ trace.market_state }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
