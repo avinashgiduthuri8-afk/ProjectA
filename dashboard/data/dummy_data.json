@@ -1,0 +1,83 @@
+{
+  "system_meta": {
+    "version": "v1.5-Ultimate",
+    "last_update_time": "08:35 AM",
+    "uptime": "14d 6h 32m",
+    "overall_health_pct": 98.5
+  },
+  "service_statuses": {
+    "scanner": "RUNNING",
+    "trading_bot": "STANDBY",
+    "telegram_bot": "RUNNING",
+    "dashboard": "RUNNING"
+  },
+  "scanner_overview": {
+    "coins_scanned": 50,
+    "elite_signals": 3,
+    "high_signals": 7,
+    "medium_signals": 12,
+    "last_scan_time": "08:30 AM"
+  },
+  "market_state": {
+    "current_state": "BULL TREND",
+    "market_strength": 82,
+    "volatility": "Medium"
+  },
+  "statistics": {
+    "signals_today": 22,
+    "win_rate": "74%",
+    "top_coin": "SOL",
+    "average_score": 81
+  },
+  "portfolio_overview": {
+    "total_value": "$18,450.00",
+    "available_cash": "$2,767.50",
+    "invested_amount": "$15,682.50",
+    "total_pnl": "+$4,120.00",
+    "daily_pnl": "+$450.00"
+  },
+  "railway_monitoring": {
+    "status": "ACTIVE",
+    "cpu_usage": "14.2%",
+    "memory_usage": "248MB / 512MB",
+    "restart_count": 0
+  },
+  "recent_signals": [
+    {"coin": "BTC", "signal": "Elite", "score": 92, "price": "$67,250", "time": "08:31 AM", "market_state": "BULL TREND"},
+    {"coin": "ETH", "signal": "High", "score": 84, "price": "$3,540", "time": "08:24 AM", "market_state": "BULL TREND"},
+    {"coin": "SOL", "signal": "Elite", "score": 90, "price": "$142.50", "time": "08:15 AM", "market_state": "BULL TREND"},
+    {"coin": "XRP", "signal": "Medium", "score": 72, "price": "$0.58", "time": "07:54 AM", "market_state": "RANGING"}
+  ],
+  "open_positions": [
+    {"coin": "BTC", "quantity": "0.15", "buy_price": "$62,400", "current_price": "$67,250", "pnl_pct": "+7.77%", "status": "HOLD"},
+    {"coin": "ETH", "quantity": "1.20", "buy_price": "$3,410", "current_price": "$3,540", "pnl_pct": "+3.81%", "status": "HOLD"},
+    {"coin": "SOL", "quantity": "18.5", "buy_price": "$128.00", "current_price": "$142.50", "pnl_pct": "+11.32%", "status": "TRAILING"}
+  ],
+  "closed_trades": [
+    {"coin": "LINK", "entry_price": "$14.20", "exit_price": "$16.80", "pnl": "+$260.00", "time": "06/17 14:20"},
+    {"coin": "AVAX", "entry_price": "$36.50", "exit_price": "$34.10", "pnl": "-$48.00", "time": "06/16 09:12"},
+    {"coin": "BNB", "entry_price": "$570.00", "exit_price": "$612.00", "pnl": "+$336.00", "time": "06/15 18:45"}
+  ],
+  "charts": {
+    "distribution": {"labels": ["Elite", "High", "Medium"], "data": [3, 7, 12]},
+    "daily_signals": {"labels": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], "data": [12, 19, 15, 22, 18, 24, 21]},
+    "portfolio_growth": {"labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], "data": [10000, 12500, 11800, 14200, 16500, 18450]},
+    "asset_allocation": {"labels": ["BTC", "ETH", "SOL", "USDT"], "data": [45, 25, 15, 15]}
+  },
+  "notifications": [
+    {"id": 1, "type": "elite", "text": "Elite Buy Trigger: BTC/USDT Entry verified at $67,250.", "time": "4m ago"},
+    {"id": 2, "type": "trade", "text": "Execution Success: Trailing SL adjusted upward for SOL position.", "time": "20m ago"},
+    {"id": 3, "type": "system", "text": "Railway Deployment health check response optimized.", "time": "1h ago"}
+  ],
+  "activity_timeline": [
+    {"icon": "scan", "title": "Scanner Routine Cycle Finalized", "desc": "50 Token pairs evaluated in 1.4s.", "time": "08:30 AM"},
+    {"icon": "signal", "title": "Elite Signal Broadcasted", "desc": "BTC/USDT score flagged at 92.", "time": "08:31 AM"},
+    {"icon": "trade", "title": "Automated Order Execution", "desc": "Position size verification for BTC clear.", "time": "08:32 AM"},
+    {"icon": "portfolio", "title": "Portfolio Reconciliation Complete", "desc": "Daily Profit adjusted up to +$450.00.", "time": "08:35 AM"}
+  ],
+  "error_logs": [
+    {"timestamp": "06/18 04:12:05", "service": "TELEGRAM", "severity": "WARN", "message": "API timeout handling retry block connection attempt 1."},
+    {"timestamp": "06/17 21:44:18", "service": "SCANNER", "severity": "INFO", "message": "Memory clearing execution process dropped cached indices."},
+    {"timestamp": "06/15 11:02:50", "service": "RAILWAY", "severity": "ERROR", "message": "Failed internal metric collection cycle. Resetting stream handle."}
+  ]
+}

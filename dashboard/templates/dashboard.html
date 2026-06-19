@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT-A ULTIMATE DASHBOARD v1.5</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="ultimate-shell">
+        
+        <aside class="side-navigation-dock">
+            <div class="brand-header">
+                <h2>PROJECT-A <span class="pulse-core"></span></h2>
+            </div>
+            <nav class="navigation-links">
+                <div class="nav-header">Overview</div>
+                <a href="#" class="nav-anchor active" data-target="home-view">Dashboard Home</a>
+                <a href="#" class="nav-anchor" data-target="scanner-view">Scanner Center</a>
+                <a href="#" class="nav-anchor" data-target="portfolio-view">Portfolio Center</a>
+                
+                <div class="nav-header">Execution Logs</div>
+                <a href="#" class="nav-anchor" data-target="open-view">Open Positions</a>
+                <a href="#" class="nav-anchor" data-target="history-view">Trade History</a>
+                
+                <div class="nav-header">DevOps Engine</div>
+                <a href="#" class="nav-anchor" data-target="monitoring-view">System Health</a>
+                <a href="#" class="nav-anchor" data-target="settings-view">Settings Panel</a>
+            </nav>
+        </aside>
+
+        <div class="main-workspace-wrapper">
+            
+            <header class="application-status-header">
+                <div class="status-left-group">
+                    <div class="status-badge-item">
+                        <span class="status-dot green"></span>
+                        Scanner: <span class="badge-label text-green">{{ data.service_statuses.scanner }}</span>
+                    </div>
+                    <div class="status-badge-item">
+                        <span class="status-dot gold"></span>
+                        Trading Bot: <span class="badge-label text-gold">{{ data.service_statuses.trading_bot }}</span>
+                    </div>
+                    <div class="status-badge-item">
+                        <span class="status-dot green"></span>
+                        Telegram: <span class="badge-label text-green">{{ data.service_statuses.telegram_bot }}</span>
+                    </div>
+                    <div class="status-badge-item">
+                        <span class="status-dot green"></span>
+                        Railway Node: <span class="badge-label text-green">{{ data.railway_monitoring.status }}</span>
+                    </div>
+                </div>
+                <div class="status-right-group">
+                    <button id="alert-dropdown-btn" class="utility-badge-trigger">
+                        Alerts <span class="alert-counter-badge">{{ data.notifications | length }}</span>
+                    </button>
+                    <button id="global-theme-toggle" class="action-control-btn">Toggle Interface Theme</button>
+                </div>
+
+                <div id="alerts-popup-overlay" class="alerts-overlay-card view-hidden">
+                    <div class="overlay-header"><h4>System Notification Stream</h4></div>
+                    <div class="overlay-list-wrapper">
+                        {% for log in data.notifications %}
+                        <div class="alert-item alert-type-{{ log.type }}">
+                            <p>{{ log.text }}</p>
+                            <span class="alert-timestamp-label">{{ log.time }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </header>
+
+            <main class="workspace-viewport">
+                
+                <div id="home-view" class="spa-view-layer">
+                    <div class="dashboard-grid-matrix">
+                        
+                        <div class="metric-card span-4 gradient-card-blue">
+                            <h5>Aggregated Total Assets Under Management</h5>
+                            <h2>{{ data.portfolio_overview.total_value }}</h2>
+                            <div class="card-footer-metric">Daily Change Delta: <span class="text-green">{{ data.portfolio_overview.daily_pnl }}</span></div>
+                        </div>
+                        <div class="metric-card span-4">
+                            <h5>Scanner Processing Efficiency Matrix</h5>
+                            <h3>{{ data.scanner_overview.coins_scanned }} Market Assets</h3>
+                            <div class="card-footer-metric">Last Execution Tick: <span class="text-white">{{ data.scanner_overview.last_scan_time }}</span></div>
+                        </div>
+                        <div class="metric-card span-4">
+                            <h5>Railway Cluster Node Diagnostics</h5>
+                            <h3>{{ data.railway_monitoring.cpu_usage }} CPU Core Load</h3>
+                            <div class="card-footer-metric">Memory Allocation: <span class="text-white">{{ data.railway_monitoring.memory_usage }}</span></div>
+                        </div>
+
+                        <div class="metric-card span-4 canvas-wrapper-box">
+                            <h5>Signal Hit Intensity Spectrum</h5>
+                            <div class="canvas-holder"><canvas id="homePieChart"></canvas></div>
+                        </div>
+                        <div class="metric-card span-4 canvas-wrapper-box">
+                            <h5>Macro Volatility Index Gauge</h5>
+                            <div class="canvas-holder gauge-layout-box">
+                                <canvas id="homeGaugeChart"></canvas>
+                                <div class="gauge-readout-digits">{{ data.market_state.market_strength }}%</div>
+                            </div>
+                        </div>
+                        <div class="metric-card span-4 canvas-wrapper-box">
+                            <h5>Daily Aggregated Engine Breakouts</h5>
+                            <div class="canvas-holder"><canvas id="homeLineChart"></canvas></div>
+                        </div>
+
+                        <div class="metric-card span-6">
+                            <h5>Real-time Processing Automation Timeline</h5>
+                            <div class="activity-timeline-scroller">
+                                {% for event in data.activity_timeline %}
+                                <div class="timeline-event-row">
+                                    <div class="event-marker-dot-node"></div>
+                                    <div class="event-details-block">
+                                        <h6>{{ event.title }}</h6>
+                                        <p>{{ event.desc }}</p>
+                                        <span class="event-timestamp-tag">{{ event.time }}</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="metric-card span-6 table-container-card">
+                            <h5>Infrastructure Runtime Error Log Registers</h5>
+                            <div class="scroller-table-axis">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Module</th>
+                                            <th>Severity</th>
+                                            <th>Trace Log Message</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for err in data.error_logs %}
+                                        <tr>
+                                            <td class="text-muted text-nowrap">{{ err.timestamp }}</td>
+                                            <td><span class="tag-neutral font-600">{{ err.service }}</span></td>
+                                            <td><span class="row-badge-pill color-indicator-{{ err.severity | lower }}">{{ err.severity }}</span></td>
+                                            <td class="text-bright font-mono text-sm">{{ err.message }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="scanner-view" class="spa-view-layer view-hidden">
+                    <div class="dashboard-grid-matrix">
+                        <div class="metric-card span-3"><h5>Coins Scanned</h5><h2>{{ data.scanner_overview.coins_scanned }}</h2></div>
+                        <div class="metric-card span-3"><h5>Elite Signals</h5><h2 class="text-blue">{{ data.scanner_overview.elite_signals }}</h2></div>
+                        <div class="metric-card span-3"><h5>High Signals</h5><h2 class="text-gold">{{ data.scanner_overview.high_signals }}</h2></div>
+                        <div class="metric-card span-3"><h5>Medium Signals</h5><h2 class="text-red">{{ data.scanner_overview.medium_signals }}</h2></div>
+                        
+                        <div class="metric-card span-12 table-container-card">
+                            <h5>Live Telemetry Engine Signals (Active Matrix Data Stream)</h5>
+                            <div class="scroller-table-axis">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Pair Target</th>
+                                            <th>Classification Level</th>
+                                            <th>Vector Score</th>
+                                            <th>Reference Base Price</th>
+                                            <th>Discovery Timestamp</th>
+                                            <th>Macro Market Phase</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for trace in data.recent_signals %}
+                                        <tr>
+                                            <td><strong>{{ trace.coin }}/USDT</strong></td>
+                                            <td><span class="row-badge-pill signal-type-{{ trace.signal | lower }}">{{ trace.signal }}</span></td>
+                                            <td><strong class="text-white">{{ trace.score }}</strong></td>
+                                            <td>{{ trace.price }}</td>
+                                            <td>{{ trace.time }}</td>
+                                            <td><span class="text-muted text-sm">{{ trace.market_state }}</span></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="portfolio-view" class="spa-view-layer view-hidden">
+                    <div class="dashboard-grid-matrix">
+                        <div class="metric-card span-4"><h5>Total Portfolio Value</h5><h2 class="text-blue">{{ data.portfolio_overview.total_value }}</h2></div>
+                        <div class="metric-card span-2"><h5>Available Cash</h5><h3>{{ data.portfolio_overview.available_cash }}</h3></div>
+                        <div class="metric-card span-2"><h5>Invested Amount</h5><h3>{{ data.portfolio_overview.invested_amount }}</h3></div>
+                        <div class="metric-card span-2"><h5>Total PnL Net</h5><h3 class="text-green">{{ data.portfolio_overview.total_pnl }}</h3></div>
+                        <div class="metric-card span-2"><h5>Daily PnL Delta</h5><h3 class="text-green">{{ data.portfolio_overview.daily_pnl }}</h3></div>
+                        
+                        <div class="metric-card span-6 canvas-wrapper-box">
+                            <h5>Asset Portfolio Allocation Weights</h5>
+                            <div class="canvas-holder"><canvas id="portfolioPieChart"></canvas></div>
+                        </div>
+                        <div class="metric-card span-6 canvas-wrapper-box">
+                            <h5>Compounded Equity Valuation Curve</h5>
+                            <div class="canvas-holder"><canvas id="portfolioGrowthLineChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="open-view" class="spa-view-layer view-hidden">
+                    <div class="dashboard-grid-matrix">
+                        <div class="metric-card span-12 table-container-card">
+                            <h5>Active Automated Strategy Deployments</h5>
+                            <div class="scroller-table-axis">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Coin Pair Allocation</th>
+                                            <th>Position Quantity</th>
+                                            <th>Avg Entry Cost Price</th>
+                                            <th>Current Index Valuation</th>
+                                            <th>Unrealized Yield Delta %</th>
+                                            <th>Automation Engine State</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for pos in data.open_positions %}
+                                        <tr>
+                                            <td><strong>{{ pos.coin }}/USDT</strong></td>
+                                            <td>{{ pos.quantity }}</td>
+                                            <td>{{ pos.buy_price }}</td>
+                                            <td class="text-white">{{ pos.current_price }}</td>
+                                            <td><span class="text-green font-600">{{ pos.pnl_pct }}</span></td>
+                                            <td><span class="row-badge-pill signal-type-elite">{{ pos.status }}</span></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="history-view" class="spa-view-layer view-hidden">
+                    <div class="dashboard-grid-matrix">
+                        <div class="metric-card span-12 table-container-card">
+                            <h5>Historical Transaction Core Archive Records</h5>
+                            <div class="scroller-table-axis">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset Target Pair</th>
+                                            <th>Execution Entry Price</th>
+                                            <th>Terminal Exit Settlement</th>
+                                            <th>Net Realized Profit/Loss Delta</th>
+                                            <th>Settlement Closure Mark</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for trade in data.closed_trades %}
+                                        <tr>
+                                            <td><strong>{{ trade.coin }}/USDT</strong></td>
+                                            <td>{{ trade.entry_price }}</td>
+                                            <td>{{ trade.exit_price }}</td>
+                                            <td><span class="{% if '-' in trade.pnl %}text-red{% else %}text-green{% endif %} font-600">{{ trade.pnl }}</span></td>
+                                            <td class="text-muted text-sm">{{ trade.time }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="monitoring-view" class="spa-view-layer view-hidden">
+                    <div class="dashboard-grid-matrix">
+                        <div class="metric-card span-3">
+                            <h5>Cluster Operational Uptime</h5>
+                            <h3>{{ data.system_meta.uptime }}</h3>
+                        </div>
+                        <div class="metric-card span-3">
+                            <h5>Aggregated Engine Diagnostic Health</h5>
+                            <h3 class="text-green">{{ data.system_meta.overall_health_pct }}% efficiency</h3>
+                        </div>
+                        <div class="metric-card span-3">
+                            <h5>Railway Containers Restarts</h5>
+                            <h3>{{ data.railway_monitoring.restart_count }} Throttles</h3>
+                        </div>
+                        <div class="metric-card span-3">
+                            <h5>Version Branch Status</h5>
+                            <h3>{{ data.system_meta.version }}</h3>
+                        </div>
+
+                        <div class="metric-card span-12">
+                            <h5>Micro-Service Sandbox Container Allocation Health Mapping</h5>
+                            <p class="desc-text">Internal loop checks verifying independent bot processing handles.</p>
+                            <div class="layout-matrix-inner-row">
+                                <div class="nested-status-well"><h6>Scanner Thread Matrix</h6><h4 class="text-green">ONLINE (100% Health)</h4></div>
+                                <div class="nested-status-well"><h6>Trading Position Engine</h6><h4 class="text-gold">IDLE STANDBY (99.1% Health)</h4></div>
+                                <div class="nested-status-well"><h6>Telegram Outbound Relay</h6><h4 class="text-green">ONLINE (100% Health)</h4></div>
+                                <div class="nested-status-well"><h6>FastAPI Render Worker</h6><h4 class="text-green">ONLINE (100% Health)</h4></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="settings-view" class="spa-view-layer view-hidden">
+                    <div class="metric-card span-8">
+                        <h3>Project-A Engine Parameters Preferences</h3>
+                        <p class="desc-text">Manage threshold properties without altering code interface hooks.</p>
+                        <hr class="divider-line">
+                        <form class="settings-mock-form" onsubmit="event.preventDefault();">
+                            <div class="form-element-container">
+                                <label>Strategy Risk Profile Classification</label>
+                                <select class="form-select-control">
+                                    <option>Permissive Filters (All Scores &gt; 70)</option>
+                                    <option selected>Conservative Operational Mode (Scores &gt; 80)</option>
+                                    <option>Strict Verification Only (Scores &gt; 90)</option>
+                                </select>
+                            </div>
+                            <div class="form-element-container">
+                                <label>UI Component Refresh Synchronization Interval</label>
+                                <select class="form-select-control">
+                                    <option>Real-Time Auto Pull (1s)</option>
+                                    <option selected>Standard Dashboard Throttle (5s Polling loop)</option>
+                                    <option>Manual Execution Trigger Check Only</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn-commit-mock-state">Save Settings Configuration Parameters</button>
+                        </form>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script id="dashboard-state-payload-json" type="application/json">{{ data | tojson }}</script>
+    <script src="static/script.js"></script>
+</body>
+</html>

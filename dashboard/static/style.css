@@ -1,0 +1,333 @@
+/* Color Spectrum and Architecture Theme Design Tokens */
+:root {
+    --transition-speed-core: 0.2s;
+    --font-stack-sans: 'Inter', sans-serif;
+}
+
+[data-theme="dark"] {
+    --bg-workspace: #060913;
+    --bg-surface: #0C111D;
+    --bg-navigation: #090D18;
+    --border-structural: #172033;
+    --text-main: #F4F5F7;
+    --text-muted: #64748B;
+    --color-green: #10B981;
+    --color-blue: #3B82F6;
+    --color-gold: #F59E0B;
+    --color-red: #EF4444;
+}
+
+[data-theme="light"] {
+    --bg-workspace: #F1F5F9;
+    --bg-surface: #FFFFFF;
+    --bg-navigation: #FFFFFF;
+    --border-structural: #E2E8F0;
+    --text-main: #0F172A;
+    --text-muted: #64748B;
+    --color-green: #059669;
+    --color-blue: #2563EB;
+    --color-gold: #D97706;
+    --color-red: #DC2626;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-stack-sans);
+    background-color: var(--bg-workspace);
+    color: var(--text-main);
+    overflow-x: hidden;
+    transition: background-color var(--transition-speed-core) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Matrix Framework Wrapper Shell */
+.ultimate-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Navigation Left Sidebar Dock Styling */
+.side-navigation-dock {
+    width: 260px;
+    background-color: var(--bg-navigation);
+    border-right: 1px solid var(--border-structural);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    z-index: 20;
+}
+
+.brand-header {
+    padding: 24px;
+    border-bottom: 1px solid var(--border-structural);
+}
+
+.brand-header h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text-main);
+}
+
+.pulse-core {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-green);
+    margin-left: 2px;
+}
+
+.navigation-links {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 12px;
+    gap: 4px;
+}
+
+.nav-header {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    padding: 12px 16px 4px 16px;
+    font-weight: 700;
+}
+
+.nav-anchor {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 10px 16px;
+    border-radius: 8px;
+    transition: all var(--transition-speed-core) linear;
+}
+
+.nav-anchor:hover, .nav-anchor.active {
+    background-color: rgba(59, 130, 246, 0.08);
+    color: var(--color-blue);
+}
+
+/* Main Screen Presentation Body Viewport Wrapper */
+.main-workspace-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    position: relative;
+}
+
+/* Continuous Horizontal Status Context Header Bar Layout */
+.application-status-header {
+    height: 65px;
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border-structural);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 32px;
+    position: relative;
+    z-index: 30;
+}
+
+.status-left-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-badge-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+.status-dot.green { background-color: var(--color-green); box-shadow: 0 0 8px var(--color-green); }
+.status-dot.gold { background-color: var(--color-gold); }
+
+.badge-label { font-weight: 600; }
+
+.status-right-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.utility-badge-trigger {
+    background: none;
+    border: 1px solid var(--border-structural);
+    color: var(--text-main);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.alert-counter-badge {
+    background-color: var(--color-red);
+    color: #FFFFFF;
+    font-size: 0.68rem;
+    padding: 1px 5px;
+    border-radius: 99px;
+}
+
+.action-control-btn {
+    background-color: transparent;
+    border: 1px solid var(--border-structural);
+    color: var(--text-main);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* Floating Alerts Overlay Panel Container Context Layer */
+.alerts-overlay-card {
+    position: absolute;
+    top: 60px;
+    right: 32px;
+    width: 350px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-structural);
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    overflow: hidden;
+}
+
+.overlay-header { padding: 14px 16px; border-bottom: 1px solid var(--border-structural); }
+.overlay-header h4 { font-size: 0.85rem; font-weight: 600; }
+.overlay-list-wrapper { display: flex; flex-direction: column; max-height: 300px; overflow-y: auto; }
+
+.alert-item { padding: 12px 16px; border-bottom: 1px solid var(--border-structural); font-size: 0.8rem; }
+.alert-item.alert-type-elite { border-left: 3px solid var(--color-blue); }
+.alert-item.alert-type-trade { border-left: 3px solid var(--color-green); }
+.alert-item.alert-type-system { border-left: 3px solid var(--text-muted); }
+.alert-timestamp-label { display: block; color: var(--text-muted); font-size: 0.7rem; margin-top: 4px; }
+
+/* Grid Dashboard Content Management Layout Viewports Setup */
+.workspace-viewport { padding: 32px; flex-grow: 1; overflow-y: auto; }
+.dashboard-grid-matrix { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+
+.metric-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-structural);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    grid-column: span 3;
+}
+
+.gradient-card-blue {
+    background: linear-gradient(135deg, var(--bg-surface) 0%, rgba(59, 130, 246, 0.04) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+.metric-card h5 { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+.metric-card h3 { font-size: 1.4rem; font-weight: 700; }
+.metric-card h2 { font-size: 1.85rem; font-weight: 800; letter-spacing: -0.02em; }
+
+.card-footer-metric { font-size: 0.75rem; color: var(--text-muted); margin-top: 8px; }
+
+/* Dynamic Dimensional Span Grid Maps mapping classes */
+.span-3 { grid-column: span 3; }
+.span-4 { grid-column: span 4; }
+.span-6 { grid-column: span 6; }
+.span-8 { grid-column: span 8; }
+.span-12 { grid-column: span 12; }
+
+/* Canvas Graphics Container limits boxes */
+.canvas-wrapper-box { min-height: 250px; }
+.canvas-holder { position: relative; width: 100%; height: 160px; margin-top: auto; }
+.gauge-layout-box { display: flex; justify-content: center; }
+.gauge-readout-digits { position: absolute; bottom: 0; font-size: 1.25rem; font-weight: 700; }
+
+/* Timeline Activity Trace List Layout Component Module rulesets */
+.activity-timeline-scroller { display: flex; flex-direction: column; gap: 16px; max-height: 240px; overflow-y: auto; padding-right: 4px; }
+.timeline-event-row { display: flex; gap: 14px; position: relative; }
+.event-marker-dot-node { width: 8px; height: 8px; border-radius: 50%; background-color: var(--color-blue); margin-top: 5px; flex-shrink: 0; }
+.event-details-block h6 { font-size: 0.85rem; font-weight: 600; }
+.event-details-block p { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+.event-timestamp-tag { font-size: 0.7rem; color: var(--text-muted); }
+
+/* Table and Row Architecture configuration layouts tags markers rulesets */
+.table-container-card { padding: 20px 0; }
+.table-container-card h5 { padding: 0 24px; }
+.scroller-table-axis { width: 100%; overflow-x: auto; max-height: 240px; overflow-y: auto; }
+
+table { width: 100%; border-collapse: collapse; text-align: left; }
+th, td { padding: 10px 24px; border-bottom: 1px solid var(--border-structural); }
+th { color: var(--text-muted); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+td { font-size: 0.85rem; }
+
+.text-nowrap { white-space: nowrap; }
+.font-mono { font-family: monospace; }
+.font-600 { font-weight: 600; }
+.text-sm { font-size: 0.8rem; }
+
+.text-green { color: var(--color-green); }
+.text-blue { color: var(--color-blue); }
+.text-gold { color: var(--color-gold); }
+.text-red { color: var(--color-red); }
+.text-white { color: var(--text-main); }
+
+/* Functional Visibility Engine Matrix Control Classes toggles */
+.view-hidden { display: none !important; }
+
+/* Custom Text Badges Core mapping components tracking modules tags pills */
+.row-badge-pill { padding: 3px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
+.row-badge-pill.color-indicator-warn { background-color: rgba(245,158,11,0.12); color: var(--color-gold); }
+.row-badge-pill.color-indicator-info { background-color: rgba(59,130,246,0.12); color: var(--color-blue); }
+.row-badge-pill.color-indicator-error { background-color: rgba(239,68,68,0.12); color: var(--color-red); }
+
+.row-badge-pill.signal-type-elite { background-color: rgba(59,130,246,0.12); color: var(--color-blue); }
+.row-badge-pill.signal-type-high { background-color: rgba(245,158,11,0.12); color: var(--color-gold); }
+.row-badge-pill.signal-type-medium { background-color: rgba(239,68,68,0.12); color: var(--color-red); }
+.tag-neutral { background-color: rgba(100,116,139,0.1); color: var(--text-muted); padding: 2px 5px; border-radius: 4px; font-size: 0.72rem; }
+
+/* Form Config items classes input objects preferred fields */
+.desc-text { font-size: 0.825rem; color: var(--text-muted); margin-bottom: 16px; margin-top: 2px; }
+.divider-line { border: 0; height: 1px; background: var(--border-structural); margin-bottom: 20px; }
+.form-element-container { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
+.form-element-container label { font-size: 0.8rem; color: var(--text-muted); }
+.form-select-control { background-color: var(--bg-workspace); border: 1px solid var(--border-structural); color: var(--text-main); padding: 10px; border-radius: 6px; outline: none; font-family: var(--font-stack-sans); }
+.btn-commit-mock-state { background-color: var(--color-blue); color: #FFFFFF; border: none; padding: 10px 16px; border-radius: 6px; font-size: 0.85rem; font-weight: 500; cursor: pointer; margin-top: 10px; }
+.layout-matrix-inner-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 12px; }
+.nested-status-well { background-color: var(--bg-workspace); padding: 16px; border-radius: 8px; border: 1px solid var(--border-structural); display: flex; flex-direction: column; gap: 6px; }
+.nested-status-well h6 { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+
+/* Responsive Media queries adjustments pipeline maps scaling components */
+@media(max-width: 1300px) {
+    .metric-card { grid-column: span 4; }
+    .span-3 { grid-column: span 6; }
+    .span-4 { grid-column: span 6; }
+}
+
+@media(max-width: 768px) {
+    .ultimate-shell { flex-direction: column; }
+    .side-navigation-dock { width: 100%; border-right: none; border-bottom: 1px solid var(--border-structural); }
+    .application-status-header { flex-direction: column; height: auto; padding: 16px; gap: 16px; }
+    .status-left-group { flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .metric-card, .span-3, .span-4, .span-6, .span-8, .span-12 { grid-column: span 12; }
+    .layout-matrix-inner-row { grid-template-columns: 1fr; }
+    .alerts-overlay-card { width: calc(100% - 32px); right: 16px; top: 130px; }
+}
