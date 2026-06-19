@@ -12,8 +12,12 @@ from bots.scanner_bot.scanner import get_stats
 
 app = FastAPI(title="PROJECT-A ULTIMATE DASHBOARD Framework")
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+app.mount(
+    "/static",
+    StaticFiles(directory="dashboard/static"),
+    name="static"
+)
+templates = Jinja2Templates(directory="dashboard/templates")
 
 def pull_state_payload():
     data_path = os.path.join("data", "dummy_data.json")
