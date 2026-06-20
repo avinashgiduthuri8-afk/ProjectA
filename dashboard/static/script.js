@@ -178,3 +178,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Default system initialization trace run (Dark Baseline)
     initializeAllDashboardWidgets("dark");
 });
+
+// Auto refresh dashboard every 10 seconds
+
+setInterval(() => {
+
+    window.location.reload();
+
+}, 10000);
