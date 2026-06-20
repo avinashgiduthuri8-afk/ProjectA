@@ -1,0 +1,12 @@
+{
+  "virtual_balance": 1000000,
+  "positions": {},
+  "trade_log": [],
+  "watchlist": ["BTC", "SOL", "ETH", "ZEC", "XRP", "BNB"],
+  "market_cache": {},
+  "price_history": {},
+  "trade_history": [],
+  "portfolio_history": [],
+  "error_logs": [],
+  "metrics_summary": {}
+}
