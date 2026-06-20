@@ -21,6 +21,10 @@ templates = Jinja2Templates(directory="dashboard/templates")
 
 def pull_state_payload():
 
+    signals_data = get_signals()
+    watchlist = get_watchlist()
+    stats = get_stats()
+
     return {
 
         "portfolio_overview": {
@@ -28,11 +32,13 @@ def pull_state_payload():
             "daily_pnl": "$0",
             "open_positions": 0
         },
+
         "scanner_overview": {
-            "coins_scanned": 0,
-            "active_signals": 0,
+            "coins_scanned": len(watchlist),
+            "active_signals": len(signals_data.get("signals", [])),
             "market_state": "ACTIVE"
         },
+
         "service_statuses": {
             "scanner": "ONLINE",
             "trading_bot": "OFFLINE",
@@ -42,6 +48,7 @@ def pull_state_payload():
         "railway_monitoring": {
             "status": "ACTIVE"
         },
+
         "system_meta": {
             "uptime": "0 Days",
             "version": "v1.0",
@@ -50,13 +57,19 @@ def pull_state_payload():
 
         "market_state": "ACTIVE",
 
-        "recent_signals": [],
+        # LIVE SIGNALS FROM SCANNER
+        "recent_signals": signals_data.get("signals", []),
+
+        # LIVE WATCHLIST
+        "watchlist": watchlist,
+
+        # LIVE STATS
+        "stats": stats,
 
         "notifications": [],
 
         "error_logs": []
     }
-
 @app.get("/", response_class=HTMLResponse)
 async def viewport_router(request: Request):
 
