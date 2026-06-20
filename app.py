@@ -6,7 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from bots.scanner_bot.scanner import get_signals
-from bots.scanner_bot.scanner import run_market_scan
+
 from bots.scanner_bot.scanner import get_watchlist
 from bots.scanner_bot.scanner import get_stats
 from threading import Thread
