@@ -48,7 +48,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from scanner import (
+from .scanner import (
     Scanner,
     Signal,
     SignalPerformanceTracker,
