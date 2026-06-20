@@ -23,6 +23,12 @@ def pull_state_payload():
 
     return {
 
+        "portfolio_overview": {
+            "total_value": "$0",
+            "daily_pnl": "$0",
+            "open_positions": 0
+        },
+
         "service_statuses": {
             "scanner": "ONLINE",
             "trading_bot": "OFFLINE",
@@ -41,6 +47,7 @@ def pull_state_payload():
 
         "error_logs": []
     }
+    
 @app.get("/", response_class=HTMLResponse)
 async def viewport_router(request: Request):
 
