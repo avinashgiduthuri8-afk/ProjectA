@@ -1055,7 +1055,13 @@ async def startup_event():
 @app.on_event("shutdown")
 async def shutdown_event():
     await _do_shutdown_save()
+def scanner_worker():
 
+    while True:
+
+        run_market_scan()
+
+        time.sleep(300)
 
 # =============================================================================
 # ENTRY POINT

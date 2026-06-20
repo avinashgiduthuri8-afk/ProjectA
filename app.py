@@ -97,6 +97,12 @@ async def viewport_router(request: Request):
             "watchlist": watchlist
         }
     )
+from threading import Thread
+
+Thread(
+    target=scanner_worker,
+    daemon=True
+).start()    
 @app.get("/api/v1/state", response_class=JSONResponse)
 async def unified_state_polling_endpoint():
     """Future production data hook. Live bots simply post metrics to rewrite state."""
