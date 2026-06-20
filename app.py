@@ -28,7 +28,11 @@ def pull_state_payload():
             "daily_pnl": "$0",
             "open_positions": 0
         },
-
+        "scanner_overview": {
+            "coins_scanned": 0,
+            "active_signals": 0,
+            "market_state": "ACTIVE"
+        },
         "service_statuses": {
             "scanner": "ONLINE",
             "trading_bot": "OFFLINE",
@@ -47,7 +51,7 @@ def pull_state_payload():
 
         "error_logs": []
     }
-    
+
 @app.get("/", response_class=HTMLResponse)
 async def viewport_router(request: Request):
 
