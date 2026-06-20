@@ -6,9 +6,11 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from bots.scanner_bot.scanner import get_signals
-
+from bots.scanner_bot.scanner import run_market_scan
 from bots.scanner_bot.scanner import get_watchlist
 from bots.scanner_bot.scanner import get_stats
+from threading import Thread
+import time
 
 app = FastAPI(title="PROJECT-A ULTIMATE DASHBOARD Framework")
 
@@ -76,6 +78,21 @@ def pull_state_payload():
 
         "error_logs": []
     }
+def scanner_worker():
+
+    while True:
+
+        try:
+
+            run_market_scan()
+
+            print("Scanner cycle completed")
+
+        except Exception as e:
+
+            print(f"Scanner Error: {e}")
+
+        time.sleep(300)   # 5 minutes    
 @app.get("/", response_class=HTMLResponse)
 async def viewport_router(request: Request):
 
