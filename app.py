@@ -11,7 +11,10 @@ from bots.scanner_bot.scanner import get_watchlist
 from bots.scanner_bot.scanner import get_stats
 from threading import Thread
 import time
-
+from bots.scanner_bot.main import (
+    LATEST_MTB_SIGNALS,
+    LATEST_MARKET_STATE
+)
 app = FastAPI(title="PROJECT-A ULTIMATE DASHBOARD Framework")
 
 app.mount(
@@ -23,7 +26,7 @@ templates = Jinja2Templates(directory="dashboard/templates")
 
 def pull_state_payload():
 
-    signals_data = get_signals()
+   
     watchlist = get_watchlist()
     stats = get_stats()
 
@@ -63,12 +66,10 @@ def pull_state_payload():
             "overall_health_pct": 100
         },
         
-        "market_state": {
-            "state": "ACTIVE",
-            "market_strength": 85
-        },
+        "recent_signals": LATEST_MTB_SIGNALS,
 
-        "recent_signals": signals_data.get("signals", []),
+        "market_state": LATEST_MARKET_STATE,
+        
 
         "watchlist": watchlist,
 
@@ -78,21 +79,7 @@ def pull_state_payload():
 
         "error_logs": []
     }
-def scanner_worker():
-
-    while True:
-
-        try:
-
-            run_market_scan()
-
-            print("Scanner cycle completed")
-
-        except Exception as e:
-
-            print(f"Scanner Error: {e}")
-
-        time.sleep(300)   # 5 minutes    
+  
 @app.get("/", response_class=HTMLResponse)
 async def viewport_router(request: Request):
 
@@ -114,12 +101,7 @@ async def viewport_router(request: Request):
             "watchlist": watchlist
         }
     )
-from threading import Thread
-
-Thread(
-    target=scanner_worker,
-    daemon=True
-).start()    
+   
 @app.get("/api/v1/state", response_class=JSONResponse)
 async def unified_state_polling_endpoint():
     """Future production data hook. Live bots simply post metrics to rewrite state."""
