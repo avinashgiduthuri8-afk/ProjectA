@@ -20,13 +20,27 @@ app.mount(
 templates = Jinja2Templates(directory="dashboard/templates")
 
 def pull_state_payload():
-    data_path = os.path.join("data", "dummy_data.json")
-    try:
-        with open(data_path, "r") as src:
-            return json.load(src)
-    except (FileNotFoundError, json.JSONDecodeError):
-        return {"error": "Critical State Configuration Matrix File Unreadable or Missing."}
 
+    return {
+
+        "service_statuses": {
+            "scanner": "ONLINE",
+            "trading_bot": "OFFLINE",
+            "telegram_bot": "ONLINE"
+        },
+
+        "railway_monitoring": {
+            "status": "ACTIVE"
+        },
+
+        "market_state": "ACTIVE",
+
+        "recent_signals": [],
+
+        "notifications": [],
+
+        "error_logs": []
+    }
 @app.get("/", response_class=HTMLResponse)
 async def viewport_router(request: Request):
 
