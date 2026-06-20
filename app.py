@@ -42,6 +42,11 @@ def pull_state_payload():
         "railway_monitoring": {
             "status": "ACTIVE"
         },
+        "system_meta": {
+            "uptime": "0 Days",
+            "version": "v1.0",
+            "environment": "PRODUCTION"
+        },
 
         "market_state": "ACTIVE",
 
