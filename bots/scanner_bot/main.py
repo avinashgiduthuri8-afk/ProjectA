@@ -756,6 +756,9 @@ async def _scanner_loop() -> None:
                 })
 
             LATEST_MTB_SIGNALS  = fresh
+            logger.info(
+                f"LIVE SIGNALS:{len(LATEST_MTB_SIGNALS)}"
+            )
             _SCAN_CYCLES       += 1
             _SIGNALS_GENERATED += len(fresh)
             _LAST_SCAN_TIME     = datetime.now(timezone.utc).isoformat()
