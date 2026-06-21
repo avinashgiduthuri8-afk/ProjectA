@@ -40,7 +40,7 @@ def pull_state_payload():
 
         "scanner_overview": {
 
-            "coins_scanned": len(watchlist),
+            "coins_scanned": len(watchlist.get("coins",[])),
             "active_signals": len(LATEST_MTB_SIGNALS),
             "market_state":"ACTIVE",
             "last_scan_time":"LIVE"
