@@ -724,27 +724,24 @@ async def _scanner_loop() -> None:
     while True:
         try:
             tickers = await scanner.get_tickers(force=True)
+
             logger.info(f"Tickers Downloaded={len(tickers)}")
-            logger.info(f"Tickers={len(tickers)}")
 
-            logger.info(f"Watchlist Signals={len(watchlist_sigs)}")
-
-            logger.info(f"Discovery Signals={len(discovery_sigs)}")
-
-            logger.info(f"Total Before Filters={len(all_signals)}")
-
-            logger.info(f"Final Signals={len(fresh)}")
             scanner.evaluate_signal_performance(tickers)
 
             watchlist_sigs = await scanner.scan_watchlist(tickers)
+
             discovery_sigs = await scanner.scan_market(tickers)
-        
-            all_signals: list[Signal] = watchlist_sigs + discovery_sigs
+
+            all_signals = watchlist_sigs + discovery_sigs
+
             logger.info(
                 f"Watchlist={len(watchlist_sigs)} "
                 f"Discovery={len(discovery_sigs)} "
                 f"Total={len(all_signals)}"
             )
+
+            fresh = []
 
             # Filter and convert to API-friendly dicts
             fresh: list[dict] = []
