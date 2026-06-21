@@ -701,7 +701,7 @@ async def _scanner_loop() -> None:
     """
     global LATEST_MTB_SIGNALS, LATEST_MARKET_STATE, _TRACKER, _SCANNER, \
            _LAST_SCAN_TIME, _SCAN_CYCLES, _SIGNALS_GENERATED
-
+    logger.info("ENTERED _scanner_loop")
     watchlist  = WatchlistStore()
     tracker    = SignalPerformanceTracker()
     _TRACKER   = tracker          # expose to /performance and /recent endpoints
@@ -886,8 +886,13 @@ async def _run_startup_selftest() -> None:
     # first await — by then _SCANNER and _TRACKER are both assigned.
     global _SCANNER_TASK
     task = asyncio.create_task(_scanner_loop())
+    logger.info(f"SCANNER TASK CREATED: {task}")
     _SCANNER_TASK = task
     await asyncio.sleep(0)          # yield → task runs to first await
+    logger.info(
+          f"TASK DONE={task.done()} "
+          f"CANCELLED={task.cancelled()}"
+    )
     checks["scanner_instance"] = _SCANNER is not None
     checks["background_loop"]  = not task.done()   # still alive
 
