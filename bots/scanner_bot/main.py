@@ -725,6 +725,15 @@ async def _scanner_loop() -> None:
         try:
             tickers = await scanner.get_tickers(force=True)
             logger.info(f"Tickers Downloaded={len(tickers)}")
+            logger.info(f"Tickers={len(tickers)}")
+
+            logger.info(f"Watchlist Signals={len(watchlist_sigs)}")
+
+            logger.info(f"Discovery Signals={len(discovery_sigs)}")
+
+            logger.info(f"Total Before Filters={len(all_signals)}")
+
+            logger.info(f"Final Signals={len(fresh)}")
             scanner.evaluate_signal_performance(tickers)
 
             watchlist_sigs = await scanner.scan_watchlist(tickers)
